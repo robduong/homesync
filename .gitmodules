@@ -4,3 +4,7 @@
 [submodule "data/.vim/bundle/gruvbox"]
 	path = data/.vim/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox
+[submodule "data/bin/git-aware-prompt"]
+	path = data/bin/git-aware-prompt
+	url = https://github.com/jimeh/git-aware-prompt
+
