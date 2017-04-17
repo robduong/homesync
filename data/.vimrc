@@ -48,9 +48,18 @@
 
 set nocompatible
 
-execute pathogen#infect()
 syntax on
 filetype off
+
+set rtp+=~/.vim/bundle/Vundle
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'morhetz/gruvbox'
+
+call vundle#end()
 filetype plugin indent on
 
 
