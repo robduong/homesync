@@ -17,7 +17,7 @@ NO_COLOR="\[\033[0m\]"
 SOME="\[\033[0;32m\]"
 
 #PS1="$BLUE[Robert]${YELLOW}\w${NO_COLOR}$git_branch "
-export GITAWAREPROMPT=~/.bash/git-aware-prompt
+export GITAWAREPROMPT=bin/git-aware-prompt
 source $GITAWAREPROMPT/main.sh
 export PS1="${SOME}\w ${NO_COLOR} $txtred\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\] \n${SOME}$ ${NO_COLOR} "
 
