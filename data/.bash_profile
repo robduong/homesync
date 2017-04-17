@@ -21,8 +21,8 @@ source $GITAWAREPROMPT/main.sh
 export PS1="${SOME}\w ${NO_COLOR} $txtred\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\] \n${SOME}$ ${NO_COLOR} "
 
 #setup git tab completion - local version
-if [ -f $HOME/bin/.git-completion.bash ]; then
-  . $HOME/bin/.git-completion.bash
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	. $(brew --prefix)/etc/bash_completion
 fi
 
 #git log pretty tree
