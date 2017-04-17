@@ -6,25 +6,8 @@ export PATH=/usr/local/bin:$PATH
 export EDITOR=nvim
 export AWS_CLI=/usr/local/bin/aws
 
-export rca=~/teams/rca
-export grad=~/teams/grad
-export prc=~/teams/property-core
-export bui=~/teams/builders
-export gia=~/teams/gia
-export pops=~/teams/psw-ops
-export other=~/teams/other
 
-export fp=~/teams/fp-guild
-
-eval "$(rbenv init - --no-rehash)"
-
-# builder stream specific commands
-source ~/.builder_profile
-
-source /Users/robert.duong/git/saml-aws-functions/bash-functions
-
-#AWS Account
-MY_ACCOUNT=$(cut -d '/' -f 1 <<< $AWS_ROLE_SESSION_NAME)
+#eval "$(rbenv init - --no-rehash)"
 
 #Prompt Colours
 BLUE="\[\033[0;34m\]"
@@ -36,29 +19,16 @@ SOME="\[\033[0;32m\]"
 #PS1="$BLUE[Robert]${YELLOW}\w${NO_COLOR}$git_branch "
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source $GITAWAREPROMPT/main.sh
-export PS1="${SOME}\w ${NO_COLOR} $txtred\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\] ${YELLOW} \$(cut -d '/' -f 1 <<< \$AWS_ROLE_SESSION_NAME) \n${SOME}$ ${NO_COLOR} "
-
-#Postgres
-PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.5/bin
-
-#Shush KMS encryption lives in here
-PATH=$PATH:/Users/robert.duong/git
+export PS1="${SOME}\w ${NO_COLOR} $txtred\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\] \n${SOME}$ ${NO_COLOR} "
 
 #setup git tab completion - local version
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
+if [ -f bin/.git-completion.bash ]; then
+  . bin/.git-completion.bash
 fi
 
 #git log pretty tree
 alias gitlog='git log --graph --full-history --all --color \
         --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"' 
-
-catWithColor() {
-  pygmentize -g $1
-}
-
-#syntax highlighting cat
-alias catc=catWithColor
 
 #git alias
 alias gst='git status'
@@ -99,11 +69,6 @@ man() {
         LESS_TERMCAP_us=$(printf "\e[1;32m") \
             man "$@"
 }
-
-gcut() {
-  grep $@ | tr '' '\n' | grep $@
-}
-
 
 #docker alias
 alias dockerst='docker stop $(docker ps -a -q)'
