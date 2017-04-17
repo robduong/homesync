@@ -8,3 +8,6 @@
 	path = data/bin/git-aware-prompt
 	url = https://github.com/jimeh/git-aware-prompt
 
+[submodule "data/.vim/bundle/vim-javascript"]
+	path = data/.vim/bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript
