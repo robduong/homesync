@@ -6,7 +6,6 @@ export PATH=/usr/local/bin:$PATH
 export EDITOR=nvim
 export AWS_CLI=/usr/local/bin/aws
 
-
 #eval "$(rbenv init - --no-rehash)"
 
 #Prompt Colours
@@ -17,13 +16,13 @@ NO_COLOR="\[\033[0m\]"
 SOME="\[\033[0;32m\]"
 
 #PS1="$BLUE[Robert]${YELLOW}\w${NO_COLOR}$git_branch "
-export GITAWAREPROMPT=~/bin/git-aware-prompt
+export GITAWAREPROMPT=$HOME/bin/git-aware-prompt
 source $GITAWAREPROMPT/main.sh
 export PS1="${SOME}\w ${NO_COLOR} $txtred\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\] \n${SOME}$ ${NO_COLOR} "
 
 #setup git tab completion - local version
-if [ -f bin/.git-completion.bash ]; then
-  . bin/.git-completion.bash
+if [ -f $HOME/bin/.git-completion.bash ]; then
+  . $HOME/bin/.git-completion.bash
 fi
 
 #git log pretty tree
