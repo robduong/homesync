@@ -58,6 +58,9 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'morhetz/gruvbox'
+Plugin 'ervandew/supertab'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 call vundle#end()
 filetype plugin indent on
@@ -186,6 +189,7 @@ if exists('g:plugs["tern_for_vim"]')
   let g:tern_map_keys=1
   autocmd FileType javascript setlocal omnifunc=tern#Complete
 endif
+
 "autocmd FileType javascript nnoremap <silent> <buffer> <Leader>gb :TernDef<CR>
 "autocmd FileType javascript nnoremap <silent> <buffer> <Leader>gt :TernType<CR>
 "autocmd FileType javascript nnoremap <silent> <buffer> <Leader>gr :TernRef<CR>
@@ -193,11 +197,11 @@ endif
 """""""""""
 " Neomake "
 """""""""""
-autocmd! BufWritePost * Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_verbose = 0
-let g:neomake_open_list = 0
-map <Leader>c :copen<CR>
+"autocmd! BufWritePost * Neomake
+"let g:neomake_javascript_enabled_makers = ['eslint']
+"let g:neomake_verbose = 0
+"let g:neomake_open_list = 0
+"map <Leader>c :copen<CR>
 
 
 """""""""""
