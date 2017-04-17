@@ -1,3 +1,6 @@
 [submodule "data/.vim/bundle/Vundle"]
 	path = data/.vim/bundle/Vundle
 	url = https://github.com/VundleVim/Vundle.vim
+[submodule "data/.vim/bundle/gruvbox"]
+	path = data/.vim/bundle/gruvbox
+	url = https://github.com/morhetz/gruvbox
