@@ -76,8 +76,10 @@ alias dockerrma='docker rm $(docker ps -a -q)'
 alias tmux="TERM=screen-256color-bce tmux"
 
 #FZF Options
-export FZF_DEFAULT_OPTS="--height 40% --preview 'less {}'"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export FZF_DEFAULT_OPTS="--height 40% --preview 'less {}' --bind alt-j:preview-down,alt-k:preview-up"
 export FZF_DEFAULT_COMMAND='ag -i --hidden --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 #unused stuff
 #PATH="/Users/robert.duong/.conscript/bin:$PATH"
@@ -93,3 +95,4 @@ export FZF_DEFAULT_COMMAND='ag -i --hidden --ignore .git -g ""'
 #   . `brew --prefix`/etc/bash_completion
 #  fi
 #fi
+
