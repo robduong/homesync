@@ -75,6 +75,10 @@ alias dockerrma='docker rm $(docker ps -a -q)'
 
 alias tmux="TERM=screen-256color-bce tmux"
 
+#FZF Options
+export FZF_DEFAULT_OPTS="--height 40% --preview 'less {}'"
+export FZF_DEFAULT_COMMAND='ag -i --hidden --ignore .git -g ""'
+
 #unused stuff
 #PATH="/Users/robert.duong/.conscript/bin:$PATH"
 #node.js management
