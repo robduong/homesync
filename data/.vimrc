@@ -61,6 +61,9 @@ Plugin 'morhetz/gruvbox'
 Plugin 'ervandew/supertab'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'jparise/vim-graphql'
+Plugin 'sbdchd/neoformat'
+Plugin 'derekwyatt/vim-scala'
 
 call vundle#end()
 filetype plugin indent on
@@ -153,6 +156,7 @@ let g:jsx_ext_required = 0
 """"""""""""
 " NerdTree toggle
 map <Leader>f :NERDTreeToggle<CR>
+nmap <leader>F :NERDTreeFind<CR>
 let NERDTreeMinimalUI=1
 let NERDTreeHijackNetrw=1
 
