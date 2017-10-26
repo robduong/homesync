@@ -65,6 +65,13 @@ Plugin 'mxw/vim-jsx'
 Plugin 'jparise/vim-graphql'
 Plugin 'sbdchd/neoformat'
 Plugin 'derekwyatt/vim-scala'
+Plugin 'w0rp/ale'
+Plugin 'joshdick/onedark.vim'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'alvan/vim-closetag'
+Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'ryanoasis/vim-devicons'
 
 call vundle#end()
 filetype plugin indent on
@@ -98,11 +105,24 @@ set tags=tags; " ctags
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Theme "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set background=dark
-colorscheme gruvbox
-
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
 
 "TODO: Move to solarized theme files
 "These are solarized dark specific configurations
@@ -117,12 +137,38 @@ set fillchars=""
 
 "TODO: Move to gruvbox theme files
 "These are gruvbox dark specific configurations
-hi StatusLine guifg=#282828 guibg=#fabd30 ctermbg=yellow ctermfg=black
-hi StatusLineNC guifg=#282828 guibg=#fabd30 ctermbg=yellow ctermfg=black
-hi VertSplit guibg=#3c3836 ctermbg=black ctermfg=black
-hi ColorColumn guibg=#013037 ctermbg=black
-hi TabLine guibg=#3c3836 ctermbg=black ctermfg=black
-hi TabLineSel guibg=#3c3836 ctermfg=none ctermbg=none
+"hi StatusLine guifg=#282828 guibg=#fabd30 ctermbg=yellow ctermfg=black
+"hi StatusLineNC guifg=#282828 guibg=#fabd30 ctermbg=yellow ctermfg=black
+"hi VertSplit guibg=#3c3836 ctermbg=black ctermfg=black
+"hi ColorColumn guibg=#013037 ctermbg=black
+"hi TabLine guibg=#3c3836 ctermbg=black ctermfg=black
+"hi TabLineSel guibg=#3c3836 ctermfg=none ctermbg=none
+
+let g:lightline = {
+      \ 'colorscheme': 'onedark',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch' ], [ 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head',
+      \   'filetype': 'MyFiletype',
+      \   'fileformat': 'MyFileformat',
+      \ },
+      \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" },
+      \ }
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+set background=dark
+colorscheme onedark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -148,6 +194,21 @@ nnoremap <Leader>z :%!jq '.'<CR><Paste>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Config "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""
+" Ale "
+"""""""
+let g:ale_echo_msg_format = '%linter% >> %s'
+let g:ale_sign_warning = '?' " could use emoji
+let g:ale_statusline_format = ['X %d', '? %d', '']
+
+let g:ale_linters = {'javascript': ['flow']}
+let g:ale_lint_on_save = 1
+let g:ale_fixers = {'javascript': ['prettier']}
+let g:ale_fix_on_save = 1
+let g:ale_set_highlights = 1
+
+let g:ale_javascript_standard_use_global = 0
+let g:ale_javascript_prettier_options = '--no-semi'
 """""""""""""
 " React JSX "
 """""""""""""
@@ -160,7 +221,9 @@ let g:jsx_ext_required = 0
 map <Leader>f :NERDTreeToggle<CR>
 nmap <leader>F :NERDTreeFind<CR>
 let NERDTreeMinimalUI=1
+let NERDTreeQuitOnOpen = 1
 let NERDTreeHijackNetrw=1
+let NERDTreeDirArrows = 1
 
 """""""""
 " CtrlP "
@@ -171,6 +234,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.so$\|\.dat$|\.DS_Store$'
   \ }
 
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>o :Files<CR>
+nmap <Leader>a :Ag<CR>
 """"""""""""
 " Deoplete "
 """"""""""""
@@ -219,7 +285,7 @@ endif
 
 let g:ack_autoclose=1
 cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
+"nnoremap <Leader>a :Ack!<Space>
 
 """""""""""
 " FZF.vim "
